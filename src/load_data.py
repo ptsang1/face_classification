@@ -2,16 +2,49 @@ import torch
 from sklearn.datasets import fetch_olivetti_faces
 from torch.utils.data import DataLoader, Dataset
 from torchvision import datasets, transforms
+import numpy as np
+
+class MyDataset(Dataset):
+  def __init__(self, data, transform=transforms.ToTensor()):
+    super(MyDataset).__init__()
+    self.data = data
+    self.transform=transform
+  def __len__(self):
+        return len(self.data)
+  def __getitem__(self, idx):
+    if torch.is_tensor(idx):
+        idx = idx.tolist()
+    return self.transform(self.data[idx][0].reshape(64, 64)),\
+           self.data[idx][1]
 
 
-def load_fetch_olivetti_faces():
+def load_fetch_olivetti_faces(**kwangs):
     """
     :argument: no args
     :return: A dict includes images and corresponding labels
     """
     dataset = fetch_olivetti_faces()
-    return {'images': dataset.images.reshape(400, -1),
-            'labels': dataset.target}
+    images = dataset.images
+    labels = dataset.target
+    dataset_a_indexes = np.random.choice(400, 
+                                     size=int(0.8*400), 
+                                     replace=False)
+    
+    dataset_b_indexes = np.setdiff1d(np.arange(400), dataset_a_indexes)
+
+    dataset_a = images[dataset_a_indexes].reshape((dataset_a_indexes.shape[0], -1))
+    labels_a = labels[dataset_a_indexes]
+
+    dataset_b = images[dataset_b_indexes].reshape((dataset_b_indexes.shape[0], -1))
+    labels_b = labels[dataset_b_indexes]
+
+    train_data = [(dataset_a[i], labels_a[i]) for i in range(len(dataset_a))]
+    test_data = [(dataset_b[i], labels_b[i]) for i in range(len(dataset_b))]
+    m, std = dataset_a.mean(), dataset_a.std()
+    transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize([m], [std])])
+    return DataLoader(MyDataset(train_data, transform), batch_size=32, shuffle=True),\
+           DataLoader(MyDataset(test_data, transform), batch_size=16, shuffle=True),\
+           len(set(dataset.target))
 
 
 def load_MNIST_data(batch_size=32, test_batch_size=32, transform=transforms.Compose([
@@ -36,12 +69,16 @@ def load_MNIST_data(batch_size=32, test_batch_size=32, transform=transforms.Comp
         shuffle=False
     )
 
-    return train_loader, test_loader
+    return train_loader, test_loader, 10
 
 
 def load_images_from_folder(folder, transform=transforms.Compose([
+        # transforms.RandomSizedCrop(128),
+        # transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
-        transforms.Normalize((0.1307,), (0.3081,))]), batch_size=1, shuffle=True, num_workers=0, **kwangs):
+        transforms.CenterCrop(64),
+        transforms.Normalize((0.63450485,0.4698216,0.38891008), (0.25789934,0.22389534,0.211179))
+        ]), batch_size=1, test_batch_size=1, shuffle=True, num_workers=8, train=True, **kwangs):
     """
     :param folder: data folder
     :param transform:
@@ -52,10 +89,14 @@ def load_images_from_folder(folder, transform=transforms.Compose([
     :return:
     """
     dataset = datasets.ImageFolder(folder, transform)
-    return DataLoader(dataset, batch_size, shuffle, num_workers=num_workers)
+    if train:
+      return DataLoader(dataset, batch_size, shuffle=shuffle, num_workers=num_workers)
+    else:
+      return DataLoader(dataset, test_batch_size, num_workers=num_workers)
 
 
 def load_CelebA_data(batch_size=32, test_batch_size=32, transform=transforms.Compose([
+        transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,))]), **kwargs):
     """
@@ -78,22 +119,3 @@ def load_CelebA_data(batch_size=32, test_batch_size=32, transform=transforms.Com
     )
 
     return train_loader, test_loader
-
-
-# class FaceDataset(Dataset):
-#     def __init__(self, xs, ys, label_map, n_classes, transform):
-#         self.xs = xs
-#         self.ys = ys
-#         self.label_map = label_map
-#         self.transform = transform
-#         self._n_classes = n_classes
-#         y = 0
-#
-#     def __len__(self):
-#         return len(self.ys)
-#
-#     def __get_n_classes__(self):
-#         return self._n_classes
-#
-#     def __getitem__(self, idx):
-#         return self.transform(self.xs[idx]), torch.tensor([self.ys[idx]], dtype=torch.long)

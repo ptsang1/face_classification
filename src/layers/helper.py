@@ -8,7 +8,7 @@ def conv2(input_shape, **kwargs):
     kernel_size = kwargs.get('kernel_size', 3)
     padding = kwargs.get('padding', 0)
     stride = kwargs.get('stride', 1)
-    layer = nn.Conv2d(input_shape[0], bias=False, **kwargs)
+    layer = nn.Conv2d(input_shape[0], **kwargs)
     w = (input_shape[1] - kernel_size + 2 * padding) // stride + 1
     h = (input_shape[2] - kernel_size + 2 * padding) // stride + 1
     return layer, torch.Size([out_channels, w, h])
