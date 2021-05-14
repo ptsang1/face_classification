@@ -40,7 +40,9 @@ class CreateLayer:
             operation, output_shape = self.layers[name](input_shape, **params)
             operations.append(operation)
             input_shape = output_shape
-        return nn.Sequential(*operations), input_shape
+        if len(operations) > 0: 
+            return nn.Sequential(*operations), input_shape
+        return None, input_shape
 
     def create_layers(self, input_shape, model_json=None):
         converted_model = []

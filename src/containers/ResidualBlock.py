@@ -4,9 +4,9 @@ __all__ = ['ResidualBlock']
 
 
 class ResidualBlock(nn.Module):
-    def __init__(self, shortcut, block=None):
+    def __init__(self, shortcut=[], block=None):
         super(ResidualBlock, self).__init__()
-        if len(shortcut) > 0:
+        if shortcut and len(shortcut) > 0:
             self.shortcut = nn.Sequential(*shortcut)
         else:
             self.shortcut = None
