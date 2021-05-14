@@ -28,8 +28,8 @@ class AngularSoftmaxWithLoss(nn.Module):
         #             = cos(θyi) - cos(θyi) / (1 + lambda) + Phi(θyi) / (1 + lambda)
         self.lamb = max(self.lambda_min, self.lambda_max / (1 + 0.1 * self.iter))
         output = cos_theta * 1.0
-        output[index] -= cos_theta[index] * 1.0 / (1 + self.lamb)
-        output[index] += phi_theta[index] * 1.0 / (1 + self.lamb)
+        output[index] -= cos_theta[index] * (1.0+0) / (1 + self.lamb)
+        output[index] += phi_theta[index] * (1.0+0) / (1 + self.lamb)
 
         # softmax loss
         logit = F.log_softmax(output)

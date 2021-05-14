@@ -1,179 +1,167 @@
 [
-	[
-		{
-			"name": "conv2",
-			"out_channels": 64,
-			"kernel_size": 3,
-			"stride": 2,
-			"padding": 1
-		},
-		{"name": "batch_norm2"},
-		{"name": "relu"}
-	], 
-	[{"name":  "resnet_basic_block"}], 
-	[
-		{
-			"name": "trace",
-			"block": 1,
-			"shortcut": [
-				{
-					"name": "conv2",
-					"kernel_size": 1
-				},
-				{"name": "batch_norm2"}
-			]
-		}
-	], 
-	[
-		{"name": "relu"},
-		{
-			"name": "conv2",
-			"out_channels": 128,
-			"kernel_size": 3,
-			"stride": 2,
-			"padding": 1
-		},
-		{"name": "batch_norm2"},
-		{"name": "relu"}
-	], 
-	[{"name":  "resnet_basic_block"}], 
-	[
-		{
-			"name": "trace",
-			"block": 4,
-			"shortcut": [
-				{
-					"name": "conv2",
-					"kernel_size": 1
-				},
-				{"name": "batch_norm2"}
-			]
-		}
-	], 
-	[{"name": "relu"}], 
-	[{"name":  "resnet_basic_block"}], 
-	[
-		{
-			"name": "trace",
-			"block": 7,
-			"shortcut": [
-				{
-					"name": "conv2",
-					"kernel_size": 1
-				},
-				{"name": "batch_norm2"}
-			]
-		}
-	],
-	[
-		{"name": "relu"},
-		{
-			"name": "conv2",
-			"out_channels": 256,
-			"kernel_size": 3,
-			"stride": 2,
-			"padding": 1
-		},
-		{"name": "batch_norm2"},
-		{"name": "relu"}
-	], 
-	[{"name":  "resnet_basic_block"}], 
-	[
-		{
-			"name": "trace",
-			"block": 10,
-			"shortcut": [
-				{
-					"name": "conv2",
-					"kernel_size": 1
-				},
-				{"name": "batch_norm2"}
-			]
-		}
-	], 
-	[{"name": "relu"}], 
-	[{"name":  "resnet_basic_block"}],
-	[
-		{
-			"name": "trace",
-			"block": 13,
-			"shortcut": [
-				{
-					"name": "conv2",
-					"kernel_size": 1
-				},
-				{"name": "batch_norm2"}
-			]
-		}
-	], 
-	[{"name": "relu"}], 
-	[{"name":  "resnet_basic_block"}],
-	[
-		{
-			"name": "trace",
-			"block": 16,
-			"shortcut": [
-				{
-					"name": "conv2",
-					"kernel_size": 1
-				},
-				{"name": "batch_norm2"}
-			]
-		}
-	], 
-	[{"name": "relu"}], 
-	[{"name":  "resnet_basic_block"}],
-	[
-		{
-			"name": "trace",
-			"block": 19,
-			"shortcut": [
-				{
-					"name": "conv2",
-					"kernel_size": 1
-				},
-				{"name": "batch_norm2"}
-			]
-		}
-	], 
-	[
-		{"name": "relu"},
-		{
-			"name": "conv2",
-			"out_channels": 512,
-			"kernel_size": 3,
-			"stride": 2,
-			"padding": 1
-		},
-		{"name":  "batch_norm2"},
-		{"name": "relu"}
-	], 
-	[{"name":  "resnet_basic_block"}],
-	[
-		{
-			"name": "trace",
-			"block": 22,
-			"shortcut": [
-				{
-					"name": "conv2",
-					"kernel_size": 1
-				},
-				{"name": "batch_norm2"}
-			]
-		}
-	],
-	[
-		{"name": "relu"},
-		{
-			"name": "flatten"
-		},
-		{
-			"name": "linear",
-			"out_features": 512
-		},
-		{
-			"name": "linear",
-			"out_features": 2
-		}
-	]
+  [
+    {
+      "name": "conv2",
+      "out_channels": 64,
+      "kernel_size": 3,
+      "stride": 2,
+      "padding": 1
+    },
+    { "name": "batch_norm2" },
+    { "name": "prelu" }
+  ],
+  [{ "name": "resnet_basic_block" }],
+  [
+    {
+      "name": "trace",
+      "block": 1,
+      "shortcut": [
+        {
+          "name": "conv2",
+          "kernel_size": 1
+        },
+        { "name": "batch_norm2" }
+      ]
+    }
+  ],
+  [
+    {
+      "name": "conv2",
+      "out_channels": 128,
+      "kernel_size": 3,
+      "stride": 2,
+      "padding": 1
+    },
+    { "name": "batch_norm2" },
+    { "name": "prelu" }
+  ],
+  [{ "name": "resnet_basic_block" }],
+  [
+    {
+      "name": "trace",
+      "block": 4,
+      "shortcut": [
+        {
+          "name": "conv2",
+          "kernel_size": 1
+        },
+        { "name": "batch_norm2" }
+      ]
+    }
+  ],
+  [{ "name": "resnet_basic_block" }],
+  [
+    {
+      "name": "trace",
+      "block": 7,
+      "shortcut": [
+        {
+          "name": "conv2",
+          "kernel_size": 1
+        },
+        { "name": "batch_norm2" }
+      ]
+    }
+  ],
+  [
+    {
+      "name": "conv2",
+      "out_channels": 256,
+      "kernel_size": 3,
+      "stride": 2,
+      "padding": 1
+    },
+    { "name": "batch_norm2" },
+    { "name": "prelu" }
+  ],
+  [{ "name": "resnet_basic_block" }],
+  [
+    {
+      "name": "trace",
+      "block": 10,
+      "shortcut": [
+        {
+          "name": "conv2",
+          "kernel_size": 1
+        },
+        { "name": "batch_norm2" }
+      ]
+    }
+  ],
+  [{ "name": "resnet_basic_block" }],
+  [
+    {
+      "name": "trace",
+      "block": 13,
+      "shortcut": [
+        {
+          "name": "conv2",
+          "kernel_size": 1
+        },
+        { "name": "batch_norm2" }
+      ]
+    }
+  ],
+  [{ "name": "resnet_basic_block" }],
+  [
+    {
+      "name": "trace",
+      "block": 16,
+      "shortcut": [
+        {
+          "name": "conv2",
+          "kernel_size": 1
+        },
+        { "name": "batch_norm2" }
+      ]
+    }
+  ],
+  [{ "name": "resnet_basic_block" }],
+  [
+    {
+      "name": "trace",
+      "block": 19,
+      "shortcut": [
+        {
+          "name": "conv2",
+          "kernel_size": 1
+        },
+        { "name": "batch_norm2" }
+      ]
+    }
+  ],
+  [
+    {
+      "name": "conv2",
+      "out_channels": 512,
+      "kernel_size": 3,
+      "stride": 2,
+      "padding": 1
+    },
+    { "name": "batch_norm2" },
+    { "name": "prelu" }
+  ],
+  [{ "name": "resnet_basic_block" }],
+  [
+    {
+      "name": "trace",
+      "block": 22,
+      "shortcut": [
+        {
+          "name": "conv2",
+          "kernel_size": 1
+        },
+        { "name": "batch_norm2" }
+      ]
+    }
+  ],
+  [
+    {
+      "name": "flatten"
+    },
+    {
+      "name": "linear",
+      "out_features": 512
+    }
+  ]
 ]
