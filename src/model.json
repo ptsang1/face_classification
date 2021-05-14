@@ -53,14 +53,8 @@
   [
     {
       "name": "trace",
-      "block": 7,
-      "shortcut": [
-        {
-          "name": "conv2",
-          "kernel_size": 1
-        },
-        { "name": "batch_norm2" }
-      ]
+      "block": 6,
+      "shortcut": []
     }
   ],
   [
@@ -78,7 +72,7 @@
   [
     {
       "name": "trace",
-      "block": 10,
+      "block": 9,
       "shortcut": [
         {
           "name": "conv2",
@@ -86,6 +80,14 @@
         },
         { "name": "batch_norm2" }
       ]
+    }
+  ],
+  [{ "name": "resnet_basic_block" }],
+  [
+    {
+      "name": "trace",
+      "block": 11,
+      "shortcut": []
     }
   ],
   [{ "name": "resnet_basic_block" }],
@@ -93,41 +95,15 @@
     {
       "name": "trace",
       "block": 13,
-      "shortcut": [
-        {
-          "name": "conv2",
-          "kernel_size": 1
-        },
-        { "name": "batch_norm2" }
-      ]
+      "shortcut": []
     }
   ],
   [{ "name": "resnet_basic_block" }],
   [
     {
       "name": "trace",
-      "block": 16,
-      "shortcut": [
-        {
-          "name": "conv2",
-          "kernel_size": 1
-        },
-        { "name": "batch_norm2" }
-      ]
-    }
-  ],
-  [{ "name": "resnet_basic_block" }],
-  [
-    {
-      "name": "trace",
-      "block": 19,
-      "shortcut": [
-        {
-          "name": "conv2",
-          "kernel_size": 1
-        },
-        { "name": "batch_norm2" }
-      ]
+      "block": 15,
+      "shortcut": []
     }
   ],
   [
@@ -145,14 +121,8 @@
   [
     {
       "name": "trace",
-      "block": 22,
-      "shortcut": [
-        {
-          "name": "conv2",
-          "kernel_size": 1
-        },
-        { "name": "batch_norm2" }
-      ]
+      "block": 18,
+      "shortcut": []
     }
   ],
   [

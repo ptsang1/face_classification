@@ -6,8 +6,13 @@ __all__ = ['ResidualBlock']
 class ResidualBlock(nn.Module):
     def __init__(self, shortcut, block=None):
         super(ResidualBlock, self).__init__()
-        self.shortcut = nn.Sequential(*shortcut)
+        if len(shortcut) > 0:
+            self.shortcut = nn.Sequential(*shortcut)
+        else:
+            self.shortcut = None
         self.trace = block
 
     def forward(self, x, identity):
-        return self.shortcut(identity) + x
+        if self.shortcut:
+            return self.shortcut(identity) + x
+        return x + identity
