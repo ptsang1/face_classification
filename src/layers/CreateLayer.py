@@ -26,7 +26,7 @@ class CreateLayer:
                               nn.PReLU(),
                               nn.Conv2d(input_shape[0], input_shape[0], kernel_size=3, padding=1),
                               nn.BatchNorm2d(input_shape[0]),
-                              nn.PReLU()
+                              nn.PReLU(input_shape[0])
                               ), input_shape)
         }
 
