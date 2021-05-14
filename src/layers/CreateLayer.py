@@ -17,13 +17,13 @@ class CreateLayer:
             'batch_norm2': lambda input_shape: (nn.BatchNorm2d(input_shape[0]), input_shape),
             'max_pooling': lambda input_shape, **kwargs: max_pooling(input_shape, **kwargs),
             'identity': lambda: Lambda(lambda x: x),
-            'angle': lambda preceding_units, n_classes, margin=4: AngleLayer(preceding_units, n_classes, m=4),
+            'angle': lambda preceding_units, n_classes, margin=4: AngleLayer(preceding_units, n_classes, m=margin),
             'relu': lambda input_shape, inplace=False: (nn.ReLU(inplace), input_shape),
-            'prelu': lambda input_shape: (nn.PReLU(input_shape), input_shape),
+            'prelu': lambda input_shape: (nn.PReLU(input_shape[0]), input_shape),
             'resnet_basic_block': lambda input_shape, **kwargs: (
                 nn.Sequential(nn.Conv2d(input_shape[0], input_shape[0], kernel_size=3, padding=1),
                               nn.BatchNorm2d(input_shape[0]),
-                              nn.PReLU(),
+                              nn.PReLU(input_shape[0]),
                               nn.Conv2d(input_shape[0], input_shape[0], kernel_size=3, padding=1),
                               nn.BatchNorm2d(input_shape[0]),
                               nn.PReLU(input_shape[0])
