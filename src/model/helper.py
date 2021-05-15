@@ -56,7 +56,7 @@ def train_one_epoch(model: nn.Module,
         optimizer.zero_grad()  # clear the gradients of all optimized variables
 
         start.record()
-        features, outputs = model(inputs)  # forward pass
+        _, outputs = model(inputs)  # forward pass
         # outputs = model(inputs)
         loss = criterion(outputs, labels)  # calculate loss
         loss.backward()  # backward pass
