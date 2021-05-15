@@ -22,10 +22,10 @@ class CreateLayer:
             'prelu': lambda input_shape: (nn.PReLU(input_shape[0]), input_shape),
             'resnet_basic_block': lambda input_shape, **kwargs: (
                 nn.Sequential(nn.Conv2d(input_shape[0], input_shape[0], kernel_size=3, padding=1),
-                              nn.BatchNorm2d(input_shape[0]),
+                            #   nn.BatchNorm2d(input_shape[0]),
                               nn.PReLU(input_shape[0]),
                               nn.Conv2d(input_shape[0], input_shape[0], kernel_size=3, padding=1),
-                              nn.BatchNorm2d(input_shape[0]),
+                            #   nn.BatchNorm2d(input_shape[0]),
                               nn.PReLU(input_shape[0])
                               ), input_shape)
         }

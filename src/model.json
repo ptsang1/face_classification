@@ -7,7 +7,6 @@
       "stride": 2,
       "padding": 1
     },
-    { "name": "batch_norm2" },
     { "name": "prelu" }
   ],
   [{ "name": "resnet_basic_block" }],
@@ -15,13 +14,7 @@
     {
       "name": "trace",
       "block": 1,
-      "shortcut": [
-        {
-          "name": "conv2",
-          "kernel_size": 1
-        },
-        { "name": "batch_norm2" }
-      ]
+      "shortcut": []
     }
   ],
   [
@@ -32,7 +25,6 @@
       "stride": 2,
       "padding": 1
     },
-    { "name": "batch_norm2" },
     { "name": "prelu" }
   ],
   [{ "name": "resnet_basic_block" }],
@@ -40,13 +32,7 @@
     {
       "name": "trace",
       "block": 4,
-      "shortcut": [
-        {
-          "name": "conv2",
-          "kernel_size": 1
-        },
-        { "name": "batch_norm2" }
-      ]
+      "shortcut": []
     }
   ],
   [{ "name": "resnet_basic_block" }],
@@ -65,7 +51,6 @@
       "stride": 2,
       "padding": 1
     },
-    { "name": "batch_norm2" },
     { "name": "prelu" }
   ],
   [{ "name": "resnet_basic_block" }],
@@ -73,13 +58,7 @@
     {
       "name": "trace",
       "block": 9,
-      "shortcut": [
-        {
-          "name": "conv2",
-          "kernel_size": 1
-        },
-        { "name": "batch_norm2" }
-      ]
+      "shortcut": []
     }
   ],
   [{ "name": "resnet_basic_block" }],
@@ -114,7 +93,6 @@
       "stride": 2,
       "padding": 1
     },
-    { "name": "batch_norm2" },
     { "name": "prelu" }
   ],
   [{ "name": "resnet_basic_block" }],
