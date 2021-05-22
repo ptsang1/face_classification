@@ -69,8 +69,9 @@ def main():
         input_shape = train_data.dataset.__getitem__(0)[0].size()
         
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        model = SphereFace(model_json, input_shape=input_shape, n_classes=n_classes, **args).to(device)
+        # model = SphereFace(model_json, input_shape=input_shape, n_classes=n_classes, **args).to(device)
         # model = models.googlenet().to(device)  
+        model = sphere20a(n_classes).to(device)
         criterion = AngularSoftmaxWithLoss().to(device)
         # criterion= torch.nn.CrossEntropyLoss().to(device)
         optimizer = optim.SGD(model.parameters(),
