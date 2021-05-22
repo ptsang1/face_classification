@@ -1,6 +1,7 @@
 import torch
 from torch.nn import Parameter, Module
 from torch.autograd import Variable
+import numpy as np
 
 
 class AngleLayer(Module):
@@ -23,18 +24,18 @@ class AngleLayer(Module):
 
     def forward(self, input):
         w = self.weight.renorm(2, 1, 1e-5).mul(1e5)
-        x_modulus = torch.linalg.norm(input)
-        w_modulus = torch.linalg.norm(w)
+        x_modulus = torch.linalg.norm(input, dim=1)
+        w_modulus = torch.linalg.norm(w, dim=1)
 
         # W * x = ||W|| * ||x|| * cos(θ)
         inner_wx = input.mm(w)
-        cos_theta = inner_wx / x_modulus.view(-1, 1) / w_modulus.view(1, -1)
+        cos_theta = inner_wx / x_modulus.view(-1, 1) / w_modulus.view(-1, 1)
         cos_theta = cos_theta.clamp(-1, 1)
 
         cos_m_theta = self.cos_val[self.m](cos_theta)
         theta = Variable(cos_theta.data.acos())
         # k * pi / m <= theta <= (k + 1) * pi / m
-        k = (self.m * theta / 3.14159265).floor()
+        k = (self.m * theta / np.pi).floor()
         minus_one = k * 0.0 - 1
         # Phi(yi, i) = (-1)**k * cos(myi,i) - 2 * k
         phi_theta = (minus_one ** k) * cos_m_theta - 2 * k
