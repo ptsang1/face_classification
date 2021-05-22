@@ -23,13 +23,15 @@ class AngleLayer(Module):
         ]
 
     def forward(self, input):
+        # input: N x 512
+        # w    : 512 x n_classes
         w = self.weight.renorm(2, 1, 1e-5).mul(1e5)
         x_modulus = torch.linalg.norm(input, dim=1)
-        w_modulus = torch.linalg.norm(w, dim=1)
+        w_modulus = torch.linalg.norm(w, dim=0) # 512 x n_classes
 
         # W * x = ||W|| * ||x|| * cos(θ)
-        inner_wx = input.mm(w)
-        cos_theta = inner_wx / x_modulus.view(-1, 1) / w_modulus.view(-1, 1)
+        inner_wx = input.mm(w) # N x n_classes
+        cos_theta = inner_wx / x_modulus.view(-1, 1) / w_modulus.view(1, -1)
         cos_theta = cos_theta.clamp(-1, 1)
 
         cos_m_theta = self.cos_val[self.m](cos_theta)

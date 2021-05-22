@@ -5,7 +5,7 @@ import argparse
 from tensorboardX import SummaryWriter
 
 from load_data import *
-from model.SphereFace import SphereFace
+from model.SphereFace import SphereFace, sphere20a
 from model.helper import train
 from losses.AngularSoftmaxWithLoss import AngularSoftmaxWithLoss
 import warnings

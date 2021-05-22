@@ -65,7 +65,7 @@ class sphere20a(nn.Module):
         self.relu4_3 = nn.PReLU(512)
 
         self.fc5 = nn.Linear(8192,512)
-        self.fc6 = AngleLinear(512,self.classnum)
+        self.fc6 = AngleLayer(512,self.classnum)
 
 
     def forward(self, x):
